@@ -1,0 +1,38 @@
+{%  extends 'base_layout.html' %}
+
+{% block content %}
+    <div class="article-detail">
+        <div class="article">
+            <img src="{{ article.thumb.url }}"/>
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.body }}</p>
+            <p>{{ article.date }}</p>
+        </div>
+        {% if article.comment_set.all %}
+            <h2>Comments</h2>
+            <div class="comment">
+                {% for comment in article.comment_set.all %}
+                    <span>
+                        <a href="#">{{ comment.name }}</a> said on {{ comment.date }}
+                    </span>
+                    <p>
+                        :-> {{ comment.comment }}
+                    </p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    <br/>
+<div>
+    <h2>Add Comment</h2>
+
+    <form action="" method="POST" class="test">
+        {% csrf_token %}
+
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+</div>
+    </div>
+{% endblock %}
